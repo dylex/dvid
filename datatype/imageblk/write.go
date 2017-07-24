@@ -211,7 +211,10 @@ func (d *Data) PutVoxels(v dvid.VersionID, mutID uint64, vox *Voxels, roiname dv
 
 	// if a bufferable op, flush
 	if putbuffer != nil {
-		putbuffer.Flush()
+		err := putbuffer.Flush()
+		if err != nil {
+   		   return err
+		}
 	}
 
 	return nil

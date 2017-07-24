@@ -52,7 +52,7 @@ func init() {
 
 const (
 	// limit the number of parallel requests
-	MAXCONNECTIONS = 1000
+	MAXCONNECTIONS = 100
 	INITKEY        = "initialized"
 	// total connection tries
 	NUM_TRIES = 3
@@ -257,6 +257,8 @@ func (db *GBucket) putV(k storage.Key, value []byte) (err error) {
 		if err != nil || err2 != nil || numwrite != len(value) {
 			err = fmt.Errorf("Error writing object to google bucket")
 			time.Sleep(time.Duration(i+1) * time.Second)
+		} else	{
+			break
 		}
 	}
 
